@@ -277,6 +277,54 @@ Domoticz.prototype.toggle = function(idx, callback) {
 };
 
 
+/** section: system
+ *  Shutdown system
+ *  domoticz#shutdown(callback) -> null
+ *      - callback (Function): function to call when the request is finished with an error as first argument and result data as second argument.
+ *
+ * /json.htm?type=command&param=system_shutdown
+ **/
+Domoticz.prototype.shutdown = function(callback) {
+    var url  = this._getUrl();
+    url.addSearch("type", "command").addSearch("param", 'system_shutdown');
+    this._request(url, callback);
+};
+
+/** section: system
+ *  Reboot/Restart system
+ *  domoticz#restart(callback) -> null
+ *      - callback (Function): function to call when the request is finished with an error as first argument and result data as second argument.
+ *
+ * /json.htm?type=command&param=system_reboot
+ **/
+Domoticz.prototype.restart = function(callback) {
+    var url  = this._getUrl();
+    url.addSearch("type", "command").addSearch("param", 'system_reboot');
+    this._request(url, callback);
+};
+
+
+/**
+ *  domoticz#_getUrl() -> (URIJS)
+ *
+ *  Create an URI JS object to the Domoticz JSON API
+ **/
+Domoticz.prototype._getUrl = function() {
+    var url = URI("http://"+this.config.server+"/json.htm");
+    if(this.config["port"] && this.config["port"] != "") {
+        url.port(this.config["port"]);
+    }
+    if(this.config["protocol"] && this.config["protocol"] != "") {
+        url.protocol(this.config["protocol"]);
+    }
+    if(this.config["username"] && this.config["username"] != "") {
+        url.username(this.config["username"]);
+        if(this.config["password"]) {
+            url.password("password");
+        }
+    }
+    return url;
+};
 
 /**
  *  domoticz#_request(url, callback) -> null
@@ -295,7 +343,7 @@ Domoticz.prototype._request = function(url, callback) {
             cb(err, result);
         }
     }
-    request(url, function (error, res, data) {
+    request(url.toString(), function (error, res, data) {
         if (res.statusCode >= 400 && res.statusCode < 600 || res.statusCode < 10) {
             callCallback(new error.HttpError(data, res.statusCode));
         } else {
