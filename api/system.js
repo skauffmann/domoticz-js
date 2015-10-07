@@ -42,4 +42,19 @@ System.prototype.restart = function(callback) {
     this.domoticz._request(url, callback);
 };
 
+/** section: system
+ *  Add a log message to the Domoticz log
+ *  domoticz#addLog(message, callback) -> null
+ *      - message (String): Message to log
+ *      - callback (Function): function to call when the request is finished with an error as first argument and result data as second argument.
+ *
+ * /json.htm?type=command&param=addlogmessage&message=MESSAGE
+ **/
+System.prototype.addLog = function(message, callback) {
+    var url  = this.domoticz._getUrl();
+    url.addSearch("type", "command").addSearch("param", 'addlogmessage');
+    url.addSearch("message", message);
+    this.domoticz._request(url, callback);
+};
+
 module.exports = System;

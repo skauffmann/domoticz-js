@@ -31,8 +31,21 @@ var client = new Domoticz({
     username: "",
     password: ""
 });
-//
-client.getDevices({
+
+
+//System methods
+client.system.shutdown(function(err, res) {
+    console.log(JSON.stringify(res));
+});
+client.system.restart(function(err, res) {
+    console.log(JSON.stringify(res));
+});
+client.system.addLog("Just a hello world from the Domoticz API",function(err, res) {
+    console.log(JSON.stringify(res));
+});
+
+
+client.device.getDevices({
     filter: 'light',
     used: 'true''
     order: 'Name'
@@ -40,10 +53,10 @@ client.getDevices({
     console.log(JSON.stringify(res));
 });
 
-client.getStatus(idx, function(err, res) {
+client.device.getStatus(idx, function(err, res) {
     console.log(JSON.stringify(res));
 });
-client.getSunRiseSet(idx, function(err, res) {
+client.device.getSunRiseSet(idx, function(err, res) {
     console.log(JSON.stringify(res));
 });
 client.addLog(message);

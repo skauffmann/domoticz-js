@@ -39,12 +39,12 @@ function Domoticz(config) {
 	};
 	this.config = this._buildConfig(this.config, config);
 	
-	this.Device = new Device();
-	this.Hardware = new Hardware();
-	this.System = new System();
-	this.SwitchLight = new SwitchLight();
-	this.Scene = new Scene();
-	this.Group = new Group();
+	this.device = new Device();
+	this.hardware = new Hardware();
+	this.system = new System();
+	this.switchLight = new SwitchLight();
+	this.scene = new Scene();
+	this.group = new Group();
 }
 
 
