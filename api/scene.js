@@ -92,7 +92,7 @@ Scene.prototype.getDevices = function(idx, callback) {
 };
 
 /** section: scene
- *  List devices in a scene
+ *  Add an existing devices to a scene
  *  scene#addDevice(idx, devidx, level, hue, callback) -> null
  *      - idx (Integer): id of your scene (This number can be found in the scene tab in the column "IDX")
  *      - devidx (Integer): id of your device (This number can be found in the devices tab in the column "IDX")
@@ -148,7 +148,7 @@ Scene.prototype.getTimers = function(idx, callback) {
 
 /** section: scenes
  * Add timer to a scene
- *  scene#getTimers(idx, active, timertype, date, hour, min, randomness, command, level, days, callback) -> null
+ *  scene#addTimer(idx, active, timertype, date, hour, min, randomness, command, level, days, callback) -> null
  *      - idx (Integer): index of your scene/group.
  *      - active (Boolean):  true/false
  *      - timertype (Integer):  0 = Before Sunrise, 1 = After Sunrise, 2 = On Time, 3 = Before Sunset, 4 = After Sunset, 5 = Fixed Date/Time
@@ -163,7 +163,7 @@ Scene.prototype.getTimers = function(idx, callback) {
  *
  * /json.htm?type=command&param=addscenetimer&idx=number&active=&timertype=&date=&hour=&min=&randomness=&command=&level=&days=
  **/
-Scene.prototype.getTimers = function(idx, active, timertype, date, hour, min, randomness, command, level, days, callback) {
+Scene.prototype.addTimer = function(idx, active, timertype, date, hour, min, randomness, command, level, days, callback) {
     var url  = this.domoticz._getUrl();
     url.addSearch("type", "command").addSearch("param", "addscenetimer");
     url.addSearch("idx", idx);

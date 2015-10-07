@@ -11,14 +11,13 @@ A Node.JS module, which provides an object oriented wrapper for the Domoticz API
 
 ## Documentation
 
-You can find the docs for the API of this client at [http://jirachi.tyneo.net/skauffmann/domoticz-api-nodejs/wikis/home]http://jirachi.tyneo.net/skauffmann/domoticz-api-nodejs/wikis/home)
+You can find the docs for the API of this client at [http://jirachi.tyneo.net/skauffmann/domoticz-api-nodejs/wikis/home](http://jirachi.tyneo.net/skauffmann/domoticz-api-nodejs/wikis/home)
 
 Additionally, the [official Domoticz API documentation](https://www.domoticz.com/wiki/Domoticz_API/JSON_URL%27s)
 is a very useful resource.
 
 ## Example
 
-Print all followers of the user "mikedeboer" to the console.
 ```javascript
 var Domoticz = require("domoticz");
 
@@ -31,28 +30,99 @@ var client = new Domoticz({
     username: "",
     password: ""
 });
+```
 
-
-//System methods
+### System methods
+```javascript
+//Shutdown Domoticz
 client.system.shutdown(function(err, res) {
     console.log(JSON.stringify(res));
 });
+//Reboot Domoticz
 client.system.restart(function(err, res) {
     console.log(JSON.stringify(res));
 });
+//You can log message to Domoticz
 client.system.addLog("Just a hello world from the Domoticz API",function(err, res) {
     console.log(JSON.stringify(res));
 });
+```
 
-
+### Device methods
+```javascript
+//Get the list of all devices
 client.device.getDevices({
-    filter: 'light',
-    used: 'true''
+    filter: 'all', //values: 'all', 'light', 'weather', 'temperature', 'utility'
+    used: 'true', //values: undefined, true, false
     order: 'Name'
 }, function(err, res) {
     console.log(JSON.stringify(res));
 });
+//Get the list of all lights
+//Same methods are availables for weather (getWeathers), temperature (getTemperatures) and utility (getUtilities)
+client.device.getLights({
+    used: 'true', //values: undefined, true, false
+    order: 'Name'
+}, function(err, res) {
+    console.log(JSON.stringify(res));
+});
+```
 
+## SwitchLight methods
+```javascript
+//Turn a light/switch on
+client.switchLight.turnOn(idx, function(err, res) {
+    console.log(JSON.stringify(res));
+});
+//Turn a light/switch off
+client.switchLight.turnOff(idx, function(err, res) {
+    console.log(JSON.stringify(res));
+});
+//Toggle a switch state between on/off
+client.switchLight.toggle(idx, function(err, res) {
+    console.log(JSON.stringify(res));
+});
+//Set a dimmable light to a certain level
+client.switchLight.setLevel(idx, level, function(err, res) {
+    console.log(JSON.stringify(res));
+});
+```
+
+## Scene methods
+```javascript
+//Get all the scenes & groups
+//same as client.group.getScenesGroups()
+client.scene.getScenesGroups(idx, function(err, res) {
+    console.log(JSON.stringify(res));
+});
+//Turn a scene / group on
+client.scene.turnOn(idx, function(err, res) {
+    console.log(JSON.stringify(res));
+});
+//Add a scene (0)
+client.scene.addScene(name, function(err, res) {
+    console.log(JSON.stringify(res));
+});
+//Delete a scene or group
+client.scene.delete(idx, function(err, res) {
+    console.log(JSON.stringify(res));
+});
+//List devices in a scene
+client.scene.getDevices(idx, function(err, res) {
+    console.log(JSON.stringify(res));
+});
+//Add an existing devices to a scene
+client.scene.addDevice(idx, devidx, level, hue, function(err, res) {
+    console.log(JSON.stringify(res));
+});
+//Delete device from a scene
+client.scene.deleteDevice(idx, devidx, function(err, res) {
+    console.log(JSON.stringify(res));
+});
+```
+
+```javascript
+//Retrieve status of specific device
 client.device.getStatus(idx, function(err, res) {
     console.log(JSON.stringify(res));
 });

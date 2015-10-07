@@ -40,6 +40,7 @@ Device.prototype.getDevice = function(idx, callback) {
 };
 
 /** section: devices
+ * Get the list of all devices
  *  domoticz#getDevices(params, callback) -> null
  *      - params (Array): Array that contains the parameters and their values to be sent to the server.
  *      - callback (Function): function to call when the request is finished with an error as first argument and result data as second argument.
