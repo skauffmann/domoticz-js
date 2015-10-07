@@ -33,7 +33,7 @@ function Device(domoticz) {
  * /json.htm?type=devices&rid=IDX
  **/
 Device.prototype.getDevice = function(idx, callback) {
-    var url  = this._getUrl();
+    var url  = this.domoticz._getUrl();
     url.addSearch("type", "devices");
     url.addSearch("rid", idx);
     this.domoticz._request(url, callback);

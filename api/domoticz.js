@@ -4,6 +4,7 @@ var request = require('request');
 var URI = require("urijs");
 var _ = require('underscore');
 
+var Group = require('./group');
 var Scene = require('./scene');
 var System = require('./system');
 var SwitchLight = require('./switchlight');
@@ -41,6 +42,7 @@ function Domoticz(config) {
 	this.System = new System();
 	this.SwitchLight = new SwitchLight();
 	this.Scene = new Scene();
+	this.Group = new Group();
 }
 
 
