@@ -20,6 +20,7 @@ function Hardware(domoticz) {
 
 
 /** section: hardware
+ * Get all hardwares
  *  domoticz#getHardwares(callback) -> null
  *      - callback (Function): function to call when the request is finished with an error as first argument and result data as second argument.
  *
@@ -34,7 +35,7 @@ Hardware.prototype.getHardwares = function(callback) {
 
 /** section: hardware
  * Create virtual hardware
- *  domoticz#getHardwares(name, callback) -> null
+ *  domoticz#CreateVirtual(name, callback) -> null
  *      - name (String): Hardware name
  *      - callback (Function): function to call when the request is finished with an error as first argument and result data as second argument.
  *

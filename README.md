@@ -16,7 +16,7 @@ You can find the docs for the API of this client at [http://jirachi.tyneo.net/sk
 Additionally, the [official Domoticz API documentation](https://www.domoticz.com/wiki/Domoticz_API/JSON_URL%27s)
 is a very useful resource.
 
-## Example
+## Usage
 
 ```javascript
 var Domoticz = require("domoticz");
@@ -68,7 +68,7 @@ client.device.getLights({
 });
 ```
 
-## SwitchLight methods
+### SwitchLight methods
 ```javascript
 //Turn a light/switch on
 client.switchLight.turnOn(idx, function(err, res) {
@@ -88,7 +88,7 @@ client.switchLight.setLevel(idx, level, function(err, res) {
 });
 ```
 
-## Scene methods
+### Scene methods
 ```javascript
 //Get all the scenes & groups
 //same as client.group.getScenesGroups()
@@ -117,6 +117,43 @@ client.scene.addDevice(idx, devidx, level, hue, function(err, res) {
 });
 //Delete device from a scene
 client.scene.deleteDevice(idx, devidx, function(err, res) {
+    console.log(JSON.stringify(res));
+});
+//List timers of a scene
+client.scene.getTimers(idx, function(err, res) {
+    console.log(JSON.stringify(res));
+});
+//Add timer to a scene
+client.scene.getTimers(idx, active, timertype, date, hour, min, randomness, command, level, days, function(err, res) {
+    console.log(JSON.stringify(res));
+});
+```
+
+### Group methods
+```javascript
+//Get all the scenes & groups
+//same as client.scene.getScenesGroups()
+client.group.getScenesGroups(idx, function(err, res) {
+    console.log(JSON.stringify(res));
+});
+//Turn a scene / group on
+client.group.turnOn(idx, function(err, res) {
+    console.log(JSON.stringify(res));
+});
+//Turn a scene / group off
+client.group.turnOff(idx, function(err, res) {
+    console.log(JSON.stringify(res));
+});
+```
+
+### Hardware methods
+```javascript
+//Get all hardwares
+client.hardware.getHardwares(function(err, res) {
+    console.log(JSON.stringify(res));
+});
+//Create virtual hardware
+client.hardware.CreateVirtual(name, function(err, res) {
     console.log(JSON.stringify(res));
 });
 ```
