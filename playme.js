@@ -9,10 +9,3 @@ var client = new Domoticz({
 //client.System.shutdown();
 //client.System.restart();
 
-client.getDevices({
-    filter: 'light',
-    used: 'true''
-    order: 'Name'
-}, function(err, res) {
-    console.log(JSON.stringify(res));
-});
