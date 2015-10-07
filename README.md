@@ -32,20 +32,28 @@ var client = new Domoticz({
 });
 ```
 
+All Domoticz JS methods has callback function called after request to retreive the result.
+Don't worry, if the callback function is undefined, the callback will be just ignored.
+```javascript
+//callback method usage:
+function callback(err, res) {
+    console.log(JSON.stringify(res));
+}
+client.switchLight.turnOn(idx, callback);
+//You can do the same thing with :
+client.switchLight.turnOn(idx, function(err, res) {
+    console.log(JSON.stringify(res));
+});
+```
+
 ### System methods
 ```javascript
 //Shutdown Domoticz
-client.system.shutdown(function(err, res) {
-    console.log(JSON.stringify(res));
-});
+client.system.shutdown(callback);
 //Reboot Domoticz
-client.system.restart(function(err, res) {
-    console.log(JSON.stringify(res));
-});
+client.system.restart(callback);
 //You can log message to Domoticz
-client.system.addLog("Just a hello world from the Domoticz API",function(err, res) {
-    console.log(JSON.stringify(res));
-});
+client.system.addLog("Just a hello world from the Domoticz API", callback);
 ```
 
 ### Device methods
@@ -55,138 +63,81 @@ client.device.getDevices({
     filter: 'all', //values: 'all', 'light', 'weather', 'temperature', 'utility'
     used: 'true', //values: undefined, true, false
     order: 'Name'
-}, function(err, res) {
-    console.log(JSON.stringify(res));
-});
+}, callback);
 //Get the list of all lights
 //Same methods are availables for weather (getWeathers), temperature (getTemperatures) and utility (getUtilities)
 client.device.getLights({
     used: 'true', //values: undefined, true, false
     order: 'Name'
-}, function(err, res) {
-    console.log(JSON.stringify(res));
-});
+}, callback);
 ```
 
 ### SwitchLight methods
 ```javascript
 //Turn a light/switch on
-client.switchLight.turnOn(idx, function(err, res) {
-    console.log(JSON.stringify(res));
-});
+client.switchLight.turnOn(idx, callback);
 //Turn a light/switch off
-client.switchLight.turnOff(idx, function(err, res) {
-    console.log(JSON.stringify(res));
-});
+client.switchLight.turnOff(idx, callback);
 //Toggle a switch state between on/off
-client.switchLight.toggle(idx, function(err, res) {
-    console.log(JSON.stringify(res));
-});
+client.switchLight.toggle(idx, callback);
 //Set a dimmable light to a certain level
-client.switchLight.setLevel(idx, level, function(err, res) {
-    console.log(JSON.stringify(res));
-});
+client.switchLight.setLevel(idx, level, callback);
 ```
 
 ### Scene methods
 ```javascript
 //Get all the scenes & groups
 //same as client.group.getScenesGroups()
-client.scene.getScenesGroups(idx, function(err, res) {
-    console.log(JSON.stringify(res));
-});
+client.scene.getScenesGroups(idx, callback);
 //Turn a scene / group on
-client.scene.turnOn(idx, function(err, res) {
-    console.log(JSON.stringify(res));
-});
+client.scene.turnOn(idx, callback);
 //Add a scene (0)
-client.scene.addScene(name, function(err, res) {
-    console.log(JSON.stringify(res));
-});
+client.scene.addScene(name, callback);
 //Delete a scene or group
-client.scene.delete(idx, function(err, res) {
-    console.log(JSON.stringify(res));
-});
+client.scene.delete(idx, callback);
 //List devices in a scene
-client.scene.getDevices(idx, function(err, res) {
-    console.log(JSON.stringify(res));
-});
+client.scene.getDevices(idx, callback);
 //Add an existing devices to a scene
-client.scene.addDevice(idx, devidx, level, hue, function(err, res) {
-    console.log(JSON.stringify(res));
-});
+client.scene.addDevice(idx, devidx, level, hue, callback);
 //Delete device from a scene
-client.scene.deleteDevice(idx, devidx, function(err, res) {
-    console.log(JSON.stringify(res));
-});
+client.scene.deleteDevice(idx, devidx, callback);
 //List timers of a scene
-client.scene.getTimers(idx, function(err, res) {
-    console.log(JSON.stringify(res));
-});
+client.scene.getTimers(idx, callback);
 //Add timer to a scene
-client.scene.getTimers(idx, active, timertype, date, hour, min, randomness, command, level, days, function(err, res) {
-    console.log(JSON.stringify(res));
-});
+client.scene.getTimers(idx, active, timertype, date, hour, min, randomness, command, level, days, callback);
 ```
 
 ### Group methods
 ```javascript
 //Get all the scenes & groups
 //same as client.scene.getScenesGroups()
-client.group.getScenesGroups(idx, function(err, res) {
-    console.log(JSON.stringify(res));
-});
+client.group.getScenesGroups(idx, callback);
 //Turn a scene / group on
-client.group.turnOn(idx, function(err, res) {
-    console.log(JSON.stringify(res));
-});
+client.group.turnOn(idx, callback);
 //Turn a scene / group off
-client.group.turnOff(idx, function(err, res) {
-    console.log(JSON.stringify(res));
-});
+client.group.turnOff(idx, callback);
 ```
 
 ### Hardware methods
 ```javascript
 //Get all hardwares
-client.hardware.getHardwares(function(err, res) {
-    console.log(JSON.stringify(res));
-});
+client.hardware.getHardwarescallback);
 //Create virtual hardware
-client.hardware.CreateVirtual(name, function(err, res) {
-    console.log(JSON.stringify(res));
-});
+client.hardware.CreateVirtual(name, callback);
 ```
 
+### User variable methods
 ```javascript
-//Retrieve status of specific device
-client.device.getStatus(idx, function(err, res) {
-    console.log(JSON.stringify(res));
-});
-client.device.getSunRiseSet(idx, function(err, res) {
-    console.log(JSON.stringify(res));
-});
-client.addLog(message);
-client.getLights({
-    used: 'true''
-    order: 'Name'
-}, function(err, res) {
-    console.log(JSON.stringify(res));
-});
-
-//Turn a light/switch on
-client.switchLight(idx, true);
-//Turn a light/switch off
-client.switchLight(idx, false);
-
-//Set a dimmable light to a certain level
-client.setLightLevel(idx, 6);
-//eq to json.htm?type=command&param=switchlight&idx=99&switchcmd=Set%20Level&level=6
-
-//Toggle a switch state between on/off
-client.toggle(idx)
-/json.htm?type=command&param=switchlight&idx=99&switchcmd=Toggle
-
+//List all variables
+client.uservariable.getUserVariables(callback);
+//List one variable
+client.uservariable.getUserVariable(idx, callback);
+//Store a new variable
+client.uservariable.create(name, type, value, callback)
+//Update an existing variable
+client.uservariable.update(idx, name, type, value, callback)
+//Delete a variable
+client.uservariable.delete(idx, callback) 
 ```
 
 ## LICENSE

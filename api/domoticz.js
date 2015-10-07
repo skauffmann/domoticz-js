@@ -10,6 +10,7 @@ var System = require('./system');
 var SwitchLight = require('./switchlight');
 var Device = require('./device');
 var Hardware = require('./hardware');
+var UserVariable = require('./uservariable');
 
 /** 
  * class Domoticz
@@ -39,12 +40,13 @@ function Domoticz(config) {
 	};
 	this.config = this._buildConfig(this.config, config);
 	
-	this.device = new Device();
-	this.hardware = new Hardware();
-	this.system = new System();
-	this.switchLight = new SwitchLight();
-	this.scene = new Scene();
-	this.group = new Group();
+	this.device = new Device(this);
+	this.hardware = new Hardware(this);
+	this.system = new System(this);
+	this.switchLight = new SwitchLight(this);
+	this.scene = new Scene(this);
+	this.group = new Group(this);
+	this.uservariable = new UserVariable(this);
 }
 
 
