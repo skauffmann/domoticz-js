@@ -9,6 +9,7 @@ var Scene = require('./scene');
 var System = require('./system');
 var SwitchLight = require('./switchlight');
 var Device = require('./device');
+var Hardware = require('./hardware');
 
 /** 
  * class Domoticz
@@ -39,6 +40,7 @@ function Domoticz(config) {
 	this.config = this._buildConfig(this.config, config);
 	
 	this.Device = new Device();
+	this.Hardware = new Hardware();
 	this.System = new System();
 	this.SwitchLight = new SwitchLight();
 	this.Scene = new Scene();
