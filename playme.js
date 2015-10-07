@@ -6,6 +6,9 @@ var client = new Domoticz({
     host: "tamagotchi.tyneo.net",
 });
 
+//client.System.shutdown();
+//client.System.restart();
+
 client.getDevices({
     filter: 'light',
     used: 'true''

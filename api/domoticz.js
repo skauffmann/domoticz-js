@@ -17,15 +17,20 @@ var _ = require('underscore');
  **/
 
 
-/**
- * Initialize a new `Domoticz`.
+/** section: Domoticz
+ * Create a new instance of DomoticzJS
  *
- * @param {Array} config file
- * @api public
- */
+ **/
 function Domoticz(config) {
 	if (!(this instanceof Domoticz)) return new Domoticz(config);
-	this.config = config;
+	this.config = {
+	    protocol: 'http',
+	    host: '',
+	    port: 80,
+	    username: undefined,
+	    password: undefined
+	};
+	this.config = this._buildConfig(this.config, config);
 }
 
 
@@ -64,6 +69,12 @@ Domoticz.prototype.getDevice = function(idx, callback) {
  * /json.htm?type=devices&filter=all&used=true&order=Name
  **/
 Domoticz.prototype.getDevices = function(params, callback) {
+    var default_params = {
+        filter: 'all',
+        used: undefined,
+        order: undefined
+    }
+    params = this._buildConfig(default_params, params);
     var url  = this._getUrl();
     url.addSearch("type", "devices");
     
@@ -101,6 +112,11 @@ Domoticz.prototype.getDevices = function(params, callback) {
  * /json.htm?type=devices&filter=light&used=true&order=Name
  **/
 Domoticz.prototype.getLights = function(params, callback) {
+    var default_params = {
+        used: undefined,
+        order: undefined
+    }
+    params = this._buildConfig(default_params, params);
     var url  = this._getUrl();
     url.addSearch("type", "devices").addSearch("filter", 'light');
 
@@ -131,6 +147,11 @@ Domoticz.prototype.getLights = function(params, callback) {
  * /json.htm?type=devices&filter=weather&used=true&order=Name
  **/
 Domoticz.prototype.getWeathers = function(params, callback) {
+    var default_params = {
+        used: undefined,
+        order: undefined
+    }
+    params = this._buildConfig(default_params, params);
     var url  = this._getUrl();
     url.addSearch("type", "devices").addSearch("filter", 'weather');
 
@@ -161,6 +182,11 @@ Domoticz.prototype.getWeathers = function(params, callback) {
  * /json.htm?type=devices&filter=temperature&used=true&order=Name
  **/
 Domoticz.prototype.getTemperatures = function(params, callback) {
+    var default_params = {
+        used: undefined,
+        order: undefined
+    }
+    params = this._buildConfig(default_params, params);
     var url  = this._getUrl();
     url.addSearch("type", "devices").addSearch("filter", 'temperature');
 
@@ -191,6 +217,11 @@ Domoticz.prototype.getTemperatures = function(params, callback) {
  * /json.htm?type=devices&filter=temperature&used=true&order=Name
  **/
 Domoticz.prototype.getUtilities = function(params, callback) {
+    var default_params = {
+        used: undefined,
+        order: undefined
+    }
+    params = this._buildConfig(default_params, params);
     var url  = this._getUrl();
     url.addSearch("type", "devices").addSearch("filter", 'utility');
 
@@ -305,12 +336,26 @@ Domoticz.prototype.restart = function(callback) {
 
 
 /**
+ *  domoticz#_buildConfig() -> (array)
+ *
+ *  Merge configs
+ **/
+Domoticz.prototype._buildConfig = function (c1, c2) {
+    if(_.isArray(c1) && _.isArray(c2)) {
+        for (var name in c1) {
+            c1[name] = c2[name];
+        }
+    } //todo else { throw Exception
+    return c1;
+}
+
+/**
  *  domoticz#_getUrl() -> (URIJS)
  *
  *  Create an URI JS object to the Domoticz JSON API
  **/
 Domoticz.prototype._getUrl = function() {
-    var url = URI("http://"+this.config.server+"/json.htm");
+    var url = URI(this.config.protocol + "://" + this.config.server + "/json.htm");
     if(this.config["port"] && this.config["port"] != "") {
         url.port(this.config["port"]);
     }
@@ -337,7 +382,7 @@ Domoticz.prototype._getUrl = function() {
  **/
 Domoticz.prototype._request = function(url, callback) {
     function callCallback(err, result) {
-        if (callback) {
+        if (callback && _.isFunction(callback) ) {
             var cb = callback;
             callback = undefined;
             cb(err, result);
