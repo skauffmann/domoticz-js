@@ -44,6 +44,9 @@ client.switchLight.turnOn(idx, callback);
 client.switchLight.turnOn(idx, function(err, res) {
     console.log(JSON.stringify(res));
 });
+//You can also ignore the callback function
+client.switchLight.turnOn(idx, undefined);
+client.switchLight.turnOn(idx);
 ```
 
 ### System methods
@@ -121,7 +124,7 @@ client.group.turnOff(idx, callback);
 ### Hardware methods
 ```javascript
 //Get all hardwares
-client.hardware.getHardwarescallback);
+client.hardware.getHardwares(callback);
 //Create virtual hardware
 client.hardware.CreateVirtual(name, callback);
 ```
