@@ -3,7 +3,8 @@
 A Node.JS module, which provides an object oriented wrapper for the Domoticz API.
 
 ## Installation
-  Install via npm
+  Install via npm:
+  
       $ npm install domoticz-js
 
   Install via git clone:
