@@ -1,0 +1,23 @@
+{
+  "name": "domoticz-js",
+  "version": "0.0.1",
+  "description": "A Node.JS module, which provides an object oriented wrapper for the Domoticz API.",
+  "main": "",
+  "scripts": {
+    "test": ""
+  },
+  "repository": {
+    "type": "git",
+    "url": "git@jirachi.tyneo.net:skauffmann/domoticz-js"
+  },
+  "keywords": [
+    "domoticz"
+  ],
+  "author": "Samuel Kauffmann",
+  "license": "MIT",
+  "dependencies": {
+    "request": "^2.64.0",
+    "underscore": "^1.8.3",
+    "urijs": "^1.16.1"
+  }
+}
