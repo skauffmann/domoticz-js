@@ -13,7 +13,7 @@ var Hardware = require('./hardware');
 var UserVariable = require('./uservariable');
 
 /** 
- * class Domoticz
+ * class DomoticzJs
  *
  *  Copyright 2015 Tyneo Consulting.
  *
@@ -29,8 +29,8 @@ var UserVariable = require('./uservariable');
  * Create a new instance of DomoticzJS
  *
  **/
-function Domoticz(config) {
-	if (!(this instanceof Domoticz)) return new Domoticz(config);
+function DomoticzJs(config) {
+	if (!(this instanceof DomoticzJs)) return new DomoticzJs(config);
 	this.config = {
 	    protocol: 'http',
 	    host: '',
@@ -55,7 +55,7 @@ function Domoticz(config) {
  *
  *  Merge configs
  **/
-Domoticz.prototype._buildConfig = function (c1, c2) {
+DomoticzJs.prototype._buildConfig = function (c1, c2) {
     if(_.isArray(c1) && _.isArray(c2)) {
         for (var name in c1) {
             c1[name] = c2[name];
@@ -69,7 +69,7 @@ Domoticz.prototype._buildConfig = function (c1, c2) {
  *
  *  Create an URI JS object to the Domoticz JSON API
  **/
-Domoticz.prototype._getUrl = function() {
+DomoticzJs.prototype._getUrl = function() {
     var url = URI(this.config.protocol + "://" + this.config.server + "/json.htm");
     if(this.config["port"] && this.config["port"] != "") {
         url.port(this.config["port"]);
@@ -95,7 +95,7 @@ Domoticz.prototype._getUrl = function() {
  *
  *  Send an HTTP request to the server and pass the result to a callback.
  **/
-Domoticz.prototype._request = function(url, callback) {
+DomoticzJs.prototype._request = function(url, callback) {
     function callCallback(err, result) {
         if (callback && _.isFunction(callback) ) {
             var cb = callback;
@@ -113,4 +113,4 @@ Domoticz.prototype._request = function(url, callback) {
     });
 };
 
-module.exports = Domoticz;
+module.exports = DomoticzJs;

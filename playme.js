@@ -1,11 +1,11 @@
 'use strict';
 
-var Domoticz = require('api/domoticz');
+var DomoticzJs = require('api/domoticz');
 
-var client = new Domoticz({
-    host: "tamagotchi.tyneo.net",
+var client = new DomoticzJs({
+    host: "127.0.0.1",
 });
 
 //client.System.shutdown();
 //client.System.restart();
-
+client.system.addLog("Just a hello world from the Domoticz API", undefined);

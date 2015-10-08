@@ -3,6 +3,9 @@
 A Node.JS module, which provides an object oriented wrapper for the Domoticz API.
 
 ## Installation
+  Install via npm
+      $ npm install domoticz-js
+
   Install via git clone:
 
       $ git clone git@jirachi.tyneo.net:skauffmann/domoticz-js.git
@@ -19,9 +22,9 @@ is a very useful resource.
 ## Usage
 
 ```javascript
-var Domoticz = require("domoticz");
+var DomoticzJs = require("domoticz-js");
 
-var client = new Domoticz({
+var client = new DomoticzJs({
     //required
     host: "tamagotchi.tyneo.net",
     // optional
