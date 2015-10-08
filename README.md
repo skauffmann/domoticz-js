@@ -75,6 +75,27 @@ client.device.getLights({
 }, callback);
 ```
 
+### Update devices/sensors methods
+```javascript
+client.device.setTemperature(idx, value, callback)
+client.device.setHumidity(idx, value, callback)
+client.device.setTemperatureHumidity(idx, temperature, humidity, humidityStatus, callback)
+client.device.setTemperatureHumidityBarometer(idx, temperature, humidity, humidityStatus, bar, barFor, callback)
+client.device.setRain(idx, rainRate, rainCounter, callback) 
+client.device.setWind(idx, bearing, direction, speed, gust, temperature, tempWindChill, callback)
+client.device.setUV(idx, counter, callback)
+client.device.setCounter(idx, counter, callback)
+client.device.setEnergy(idx, power, energy, callback)
+client.device.setEnergySmartMeter(idx, power, energy, callback)
+client.device.setAirQuality(idx, power, energy, callback)
+client.device.setPressure(idx, pressure, callback)
+client.device.setLux(idx, lux, callback)
+client.device.setVoltage(idx, percent, callback)
+client.device.setText(idx, text, callback)
+client.device.setAlert(idx, level, text, callback)
+client.device.setDistance(idx, distance, callback)
+```
+
 ### SwitchLight methods
 ```javascript
 //Turn a light/switch on
