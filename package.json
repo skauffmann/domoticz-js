@@ -2,7 +2,7 @@
   "name": "domoticz-js",
   "version": "0.0.1",
   "description": "A Node.JS module, which provides an object oriented wrapper for the Domoticz API.",
-  "main": "",
+  "main": "api/domoticz.js",
   "scripts": {
     "test": ""
   },
